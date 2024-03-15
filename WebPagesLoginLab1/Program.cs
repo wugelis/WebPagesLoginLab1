@@ -1,7 +1,39 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using SalesCar.Application;
+using WebPagesLoginLab1.PageFilters;
+
 var builder = WebApplication.CreateBuilder(args);
 
+// 註冊 AppSettings Configuration 類型，可在類別中注入 IOptions<AppSettings>
+IConfigurationSection appSettingRoot = builder.Configuration.GetSection("AppSettings");
+
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddCors();
+builder.Services.AddRazorPages(options =>
+{
+    // 僅對特定頁面（例如 Index 頁面）添加自定義過濾器
+    options.Conventions.AddPageApplicationModelConvention("/Index", pageApplicationModel =>
+    {
+        pageApplicationModel.Filters.Add(new CustomAuthorizationFilter());
+    });
+});
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthentication(configure =>
+{
+    configure.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    configure.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}).AddCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(appSettingRoot.GetValue<int>("TimeoutMinutes"));
+    options.Cookie.HttpOnly = true;
+    options.Events = new CookieAuthenticationEvents()
+    {
+        OnRedirectToReturnUrl = async (context) =>
+        {
+            context.HttpContext.Response.Cookies.Delete(Account.LOGIN_USER_INFO);
+        }
+    };
+});
 
 var app = builder.Build();
 
@@ -17,7 +49,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();

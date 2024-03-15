@@ -1,10 +1,39 @@
 ﻿@page
 @model IndexModel
+@* @model SalesCar.Application.Account
+ *@
+
+<!-- Storing a string -->
 @{
+    var welcomeMessage = "Welcome, new members!";
+}
+<p>@welcomeMessage</p>
+
+<!-- Storing a date -->
+@{
+    var year = DateTime.Now.Year;
+}
+ @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    @* <form method="post">
+        <input type="text" name="Username" value="" class="form-control"/><br/>
+        <input type="password" name="Password" value="" class="form-control"/><br />
+        <input type="submit" value="Login" class="btn btn-primary" />
+    </form> *@
+</div>
+
+<div>
+    <form method="post">
+        Name:
+        <input asp-for="Customer!.Name" /><br />
+        <input type="submit" />
+    </form>
 </div>

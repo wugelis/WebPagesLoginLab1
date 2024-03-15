@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPagesLoginLab1", "WebPagesLoginLab1\WebPagesLoginLab1.csproj", "{90D2B20D-673C-4226-8DB5-9B793D5958F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebPagesLoginLab1", "WebPagesLoginLab1\WebPagesLoginLab1.csproj", "{90D2B20D-673C-4226-8DB5-9B793D5958F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{6FD75076-49D5-46F1-B2B9-D5FA4E6A4FDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{369C7C9E-5DD0-4FBB-B184-A3BCEFF3412D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalesCar.Application", "SalesCar.Application\SalesCar.Application.csproj", "{0B42393B-FD2B-46FB-804C-62FF5EEBF5CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +21,16 @@ Global
 		{90D2B20D-673C-4226-8DB5-9B793D5958F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90D2B20D-673C-4226-8DB5-9B793D5958F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90D2B20D-673C-4226-8DB5-9B793D5958F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B42393B-FD2B-46FB-804C-62FF5EEBF5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B42393B-FD2B-46FB-804C-62FF5EEBF5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B42393B-FD2B-46FB-804C-62FF5EEBF5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B42393B-FD2B-46FB-804C-62FF5EEBF5CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B42393B-FD2B-46FB-804C-62FF5EEBF5CC} = {6FD75076-49D5-46F1-B2B9-D5FA4E6A4FDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C260F7EF-A048-417B-9656-CD853F020108}
