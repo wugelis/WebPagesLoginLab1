@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EasyArchitect.PageModel.AuthExtensions": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50591;http://localhost:50592"
+    }
+  }
+}

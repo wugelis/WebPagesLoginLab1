@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using EasyArchitect.Infrastructure.Cache;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +18,15 @@ namespace WebPagesLoginLab1.Pages
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IConfiguration _configuration;
+        private readonly IRedisCacheProvider _redisCacheProvider;
 
-        public LoginModel(IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
+        public LoginModel(IHttpContextAccessor httpContextAccessor, 
+            IConfiguration configuration, 
+            IRedisCacheProvider redisCacheProvider)
         {
             _httpContextAccessor = httpContextAccessor;
             _configuration = configuration;
+            _redisCacheProvider = redisCacheProvider;
         }
 
         [BindProperty]
@@ -68,9 +73,10 @@ namespace WebPagesLoginLab1.Pages
             {
                 _httpContextAccessor.HttpContext.SignInAsync(principal);
 
+                int timeoutExpires = _configuration.GetSection("AppSettings").GetValue<int>("TimeoutMinutes");
                 CookieOptions cookieOptions = new CookieOptions()
                 {
-                    Expires = DateTime.Now.AddMinutes(_configuration.GetSection("AppSettings").GetValue<int>("TimeoutMinutes")),
+                    Expires = DateTime.Now.AddMinutes(timeoutExpires),
                     HttpOnly = true
                 };
 
@@ -80,6 +86,8 @@ namespace WebPagesLoginLab1.Pages
                 string jsonString = NewCookie.GetJsonByNewCookie(gqsCookie);
 
                 _httpContextAccessor.HttpContext.Response.Cookies.Append(Account.LOGIN_USER_INFO, jsonString, cookieOptions);
+
+                _redisCacheProvider.Put($"{Account.LOGIN_USER_INFO}_{account.Username}", new Account() { Username = account.Username }, new TimeSpan(0, timeoutExpires, 0));
             }
             catch (Exception ex)
             {

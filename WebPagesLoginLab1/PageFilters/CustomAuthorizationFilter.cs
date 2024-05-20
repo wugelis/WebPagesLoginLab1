@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using EasyArchitect.Infrastructure.Cache;
+using Microsoft.AspNetCore.Mvc.Filters;
 using SalesCar.Application;
+using System.Security.Principal;
 
 namespace WebPagesLoginLab1.PageFilters
 {
@@ -9,6 +11,12 @@ namespace WebPagesLoginLab1.PageFilters
     /// </summary>
     public class CustomAuthorizationFilter : IAsyncPageFilter
     {
+        private readonly IRedisCacheProvider _redisCacheProvider;
+
+        public CustomAuthorizationFilter(IRedisCacheProvider redisCacheProvider)
+        {
+            _redisCacheProvider = redisCacheProvider;
+        }
         public async Task OnPageHandlerExecutionAsync(PageHandlerExecutingContext context, PageHandlerExecutionDelegate next)
         {
             bool isAuthorized = CheckUserAuthorization(context);
@@ -24,9 +32,11 @@ namespace WebPagesLoginLab1.PageFilters
 
         private bool CheckUserAuthorization(PageHandlerExecutingContext context)
         {
-            context.HttpContext.Request.Cookies.TryGetValue(Account.LOGIN_USER_INFO, out string? cookieString);
+            //context.HttpContext.Request.Cookies.TryGetValue(Account.LOGIN_USER_INFO, out string? cookieString);
+            string? username = context.HttpContext.User.Identity.Name;
+            Account accSate = _redisCacheProvider.Get<Account>($"{Account.LOGIN_USER_INFO}_{username}");
 
-            return cookieString != null;    
+            return accSate != null;    
         }
 
         public Task OnPageHandlerSelectionAsync(PageHandlerSelectedContext context)

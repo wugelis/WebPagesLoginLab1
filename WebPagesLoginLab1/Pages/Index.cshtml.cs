@@ -25,11 +25,11 @@ namespace WebPagesLoginLab1.Pages
                 return;
             }
 
-            NewCookie? sessionState = NewCookie.GetNewCookieByString(cookieString, Account.LOGIN_USER_INFO);
-            if(sessionState != null)
+            NewCookie? cookieState = NewCookie.GetNewCookieByString(cookieString, Account.LOGIN_USER_INFO);
+            if(cookieState != null)
             {
                 // 透過 sessionState 取得 Username
-                var obj = sessionState.Values.CookieValue["Username"];
+                var obj = cookieState.Values.CookieValue["Username"];
             }
         }
 

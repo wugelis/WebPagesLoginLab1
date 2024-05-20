@@ -1,3 +1,4 @@
+using EasyArchitect.Infrastructure.Cache;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SalesCar.Application;
 using WebPagesLoginLab1.PageFilters;
@@ -9,12 +10,18 @@ IConfigurationSection appSettingRoot = builder.Configuration.GetSection("AppSett
 
 // Add services to the container.
 builder.Services.AddCors();
+builder.Services.AddScoped<IRedisCacheProvider, RedisCacheProvider>();
+
+#pragma warning disable ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+IServiceProvider serviceProvider = builder.Services.BuildServiceProvider();
+#pragma warning restore ASP0000 // Do not call 'IServiceCollection.BuildServiceProvider' in 'ConfigureServices'
+
 builder.Services.AddRazorPages(options =>
 {
     // 僅對特定頁面（例如 Index 頁面）添加自定義過濾器
     options.Conventions.AddPageApplicationModelConvention("/Index", pageApplicationModel =>
     {
-        pageApplicationModel.Filters.Add(new CustomAuthorizationFilter());
+        pageApplicationModel.Filters.Add(new CustomAuthorizationFilter(serviceProvider.GetRequiredService<IRedisCacheProvider>()));
     });
 });
 builder.Services.AddHttpContextAccessor();
