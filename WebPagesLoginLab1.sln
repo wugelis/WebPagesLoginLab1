@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SalesCar.Application", "Sal
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet.Packages", "NuGet.Packages", "{EF4B2694-43CD-4C68-B072-76F5417F6D4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyArchitect.PageModel.AuthExtensions", "EasyArchitect.PageModel.AuthExtensions\EasyArchitect.PageModel.AuthExtensions.csproj", "{E1628A5F-B480-438C-96E6-CB40EC35C120}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyArchitect.PageModel.AuthExtensions", "EasyArchitect.PageModel.AuthExtensions\EasyArchitect.PageModel.AuthExtensions.csproj", "{E1628A5F-B480-438C-96E6-CB40EC35C120}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyArchitect.Infrastructure.Cache", "EasyArchitect.Infrastructure.Cache\EasyArchitect.Infrastructure.Cache.csproj", "{A50F4303-213A-4AA7-B676-BB08B8B87F60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyArchitect.Infrastructure.Cache", "EasyArchitect.Infrastructure.Cache\EasyArchitect.Infrastructure.Cache.csproj", "{A50F4303-213A-4AA7-B676-BB08B8B87F60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

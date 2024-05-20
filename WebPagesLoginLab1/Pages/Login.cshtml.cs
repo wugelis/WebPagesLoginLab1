@@ -96,19 +96,5 @@ namespace WebPagesLoginLab1.Pages
 
             return result;
         }
-
-        /// <summary>
-        /// 進行登出作業
-        /// </summary>
-        /// <returns></returns>
-        //[AllowAnonymous]
-        public void LogoutProcess()
-        {
-            _httpContextAccessor.HttpContext.SignOutAsync().GetAwaiter();
-
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(Account.LOGIN_USER_INFO);
-
-            Response.Redirect("/Login");
-        }
     }
 }
