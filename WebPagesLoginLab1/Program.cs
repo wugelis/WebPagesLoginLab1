@@ -1,7 +1,8 @@
 using EasyArchitect.Infrastructure.Cache;
+using EasyArchitect.PageModel.AuthExtensions.PageFilters;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SalesCar.Application;
-using WebPagesLoginLab1.PageFilters;
+//using WebPagesLoginLab1.PageFilters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,8 @@ builder.Services.AddRazorPages(options =>
     // 僅對特定頁面（例如 Index 頁面）添加自定義過濾器
     options.Conventions.AddPageApplicationModelConvention("/Index", pageApplicationModel =>
     {
-        pageApplicationModel.Filters.Add(new CustomAuthorizationFilter(serviceProvider.GetRequiredService<IRedisCacheProvider>()));
+        pageApplicationModel.Filters.Add(new CustomAuthorizationFilter(appSettingRoot));
+        //pageApplicationModel.Filters.Add(new CustomAuthorizationFilter(serviceProvider.GetRequiredService<IRedisCacheProvider>()));
     });
 });
 builder.Services.AddHttpContextAccessor();

@@ -1,3 +1,4 @@
+using EasyArchitect.PageModel.AuthExtensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -5,13 +6,11 @@ using SalesCar.Application;
 
 namespace WebPagesLoginLab1.Pages
 {
-    public class LogoutModel : PageModel
+    public class LogoutModel : PageModelBase
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public LogoutModel(IHttpContextAccessor httpContextAccessor)
+        public LogoutModel(IConfiguration configuration, IHttpContextAccessor httpContextAccessor) 
+            : base(configuration, httpContextAccessor)
         {
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public void OnGet()
@@ -21,20 +20,6 @@ namespace WebPagesLoginLab1.Pages
         public void OnPost()
         {
             LogoutProcess();
-        }
-
-        /// <summary>
-        /// 進行登出作業
-        /// </summary>
-        /// <returns></returns>
-        //[AllowAnonymous]
-        public void LogoutProcess()
-        {
-            _httpContextAccessor.HttpContext.SignOutAsync().GetAwaiter();
-
-            _httpContextAccessor.HttpContext.Response.Cookies.Delete(Account.LOGIN_USER_INFO);
-
-            Response.Redirect("/Login");
         }
     }
 }
