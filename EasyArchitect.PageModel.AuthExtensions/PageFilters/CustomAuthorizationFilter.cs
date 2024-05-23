@@ -1,6 +1,7 @@
 ﻿using EasyArchitect.OutsideManaged.AuthExtensions.Models;
 using EasyArchitectCore.Core;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Configuration;
 using System.Security.Principal;
 using System.Text.Json;
 
