@@ -17,6 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyArchitect.Infrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyArchitect.PageModel.AuthExtensions", "EasyArchitect.PageModel.AuthExtensions\EasyArchitect.PageModel.AuthExtensions.csproj", "{7B23A5AC-1212-4AD2-B36E-0F8272787BE6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "方案項目", "方案項目", "{D295B214-7004-49DF-B56E-30BADBAB2D18}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
