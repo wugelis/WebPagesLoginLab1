@@ -25,6 +25,10 @@ builder.Services.AddRazorPages(options =>
         pageApplicationModel.Filters.Add(new CustomAuthorizationFilter(appSettingRoot));
         //pageApplicationModel.Filters.Add(new CustomAuthorizationFilter(serviceProvider.GetRequiredService<IRedisCacheProvider>()));
     });
+    options.Conventions.AddPageApplicationModelConvention("/Privacy", pageApplicationModel =>
+    {
+        pageApplicationModel.Filters.Add(new CustomAuthorizationFilter(appSettingRoot));
+    });
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(configure =>
